@@ -16,5 +16,4 @@
 `длина_массива порядок_сортировки тип_сортировки_1 тип_сортировки_2 ... тип_сортировки_n`  
 Допустимая длина исходного массива: `2 ... 9999`
 Порядок сортировки исходного массива: `RND ASC DSC` (случайный, прямой, обратный порядок)  
-Типы сортировки: `selection bubble coctail insertion shell` 
-Пример запуска: `algo1.exe 100 RND bubble coctail`
+Типы сортировки: `selection bubble coctail insertion shell`Пример запуска: `algo1.exe 100 RND bubble coctail`
