@@ -6,41 +6,41 @@
 #include <string.h>
 #include <conio.h>
 /*
- * Функции работы с массивами
+ * ╨д╤Г╨╜╨║╤Ж╨╕╨╕ ╤А╨░╨▒╨╛╤В╤Л ╤Б ╨╝╨░╤Б╤Б╨╕╨▓╨░╨╝╨╕
 */
-int PrntArray(int *arr, int length);            //выводит массив на экран, возвращает сумму элементов
-int FillArrayRandomizd(int *arr, int length);   //заполняет массив заданной длинны псевдослучайными числами, ворзвращает сумму этих чисел
-int FillArrayAscending(int *arr, int length);   //то же + сортирует массив в прямом порядке
-int FillArrayDscending(int *arr, int length);   //то же + сортирует массив в обратном порядке
-int CalculateSequences(int *arr, int length);   //подсчёт числа серий в массиве
-void CopyArray(int *arrSrc, int *arrDst, int length);   //копирует элементы массива arrSrc в arrDst
-void MirrorArray(int *arr, int length);         //отразить порядок следования элементов в массиве
+int PrntArray(int *arr, int length);            //╨▓╤Л╨▓╨╛╨┤╨╕╤В ╨╝╨░╤Б╤Б╨╕╨▓ ╨╜╨░ ╤Н╨║╤А╨░╨╜, ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╤Б╤Г╨╝╨╝╤Г ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓
+int FillArrayRandomizd(int *arr, int length);   //╨╖╨░╨┐╨╛╨╗╨╜╤П╨╡╤В ╨╝╨░╤Б╤Б╨╕╨▓ ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ ╨┤╨╗╨╕╨╜╨╜╤Л ╨┐╤Б╨╡╨▓╨┤╨╛╤Б╨╗╤Г╤З╨░╨╣╨╜╤Л╨╝╨╕ ╤З╨╕╤Б╨╗╨░╨╝╨╕, ╨▓╨╛╤А╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╤Б╤Г╨╝╨╝╤Г ╤Н╤В╨╕╤Е ╤З╨╕╤Б╨╡╨╗
+int FillArrayAscending(int *arr, int length);   //╤В╨╛ ╨╢╨╡ + ╤Б╨╛╤А╤В╨╕╤А╤Г╨╡╤В ╨╝╨░╤Б╤Б╨╕╨▓ ╨▓ ╨┐╤А╤П╨╝╨╛╨╝ ╨┐╨╛╤А╤П╨┤╨║╨╡
+int FillArrayDscending(int *arr, int length);   //╤В╨╛ ╨╢╨╡ + ╤Б╨╛╤А╤В╨╕╤А╤Г╨╡╤В ╨╝╨░╤Б╤Б╨╕╨▓ ╨▓ ╨╛╨▒╤А╨░╤В╨╜╨╛╨╝ ╨┐╨╛╤А╤П╨┤╨║╨╡
+int CalculateSequences(int *arr, int length);   //╨┐╨╛╨┤╤Б╤З╤С╤В ╤З╨╕╤Б╨╗╨░ ╤Б╨╡╤А╨╕╨╣ ╨▓ ╨╝╨░╤Б╤Б╨╕╨▓╨╡
+void CopyArray(int *arrSrc, int *arrDst, int length);   //╨║╨╛╨┐╨╕╤А╤Г╨╡╤В ╤Н╨╗╨╡╨╝╨╡╨╜╤В╤Л ╨╝╨░╤Б╤Б╨╕╨▓╨░ arrSrc ╨▓ arrDst
+void MirrorArray(int *arr, int length);         //╨╛╤В╤А╨░╨╖╨╕╤В╤М ╨┐╨╛╤А╤П╨┤╨╛╨║ ╤Б╨╗╨╡╨┤╨╛╨▓╨░╨╜╨╕╤П ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓ ╨▓ ╨╝╨░╤Б╤Б╨╕╨▓╨╡
 /*
- * Функции сортировки
+ * ╨д╤Г╨╜╨║╤Ж╨╕╨╕ ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕
 */
-void SelectionSort(int *arr, int length, int *M, int *C);   //сортировка методом прямого выбора
-void BubbleSort(int *arr, int length, int *M, int *C);      //пузырьковая сортировка
-void CoctailSort(int *arr, int length, int *M, int *C);     //шейкерная сортировка
-void InsertionSort(int *arr, int length, int *M, int *C);   //сортировка вставками
-void ShellSort(int *arr, int length, int *M, int *C);       //сортировка Шелла, последовательность шагов Хиббарда/Кнута 1,3,7,15,31,...,((2^k)-1)
-//+ пирамида, Хоара
-const int alg_count = 5;                                    //число реализованных алгоритмов
+void SelectionSort(int *arr, int length, int *M, int *C);   //╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░ ╨╝╨╡╤В╨╛╨┤╨╛╨╝ ╨┐╤А╤П╨╝╨╛╨│╨╛ ╨▓╤Л╨▒╨╛╤А╨░
+void BubbleSort(int *arr, int length, int *M, int *C);      //╨┐╤Г╨╖╤Л╤А╤М╨║╨╛╨▓╨░╤П ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░
+void CoctailSort(int *arr, int length, int *M, int *C);     //╤И╨╡╨╣╨║╨╡╤А╨╜╨░╤П ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░
+void InsertionSort(int *arr, int length, int *M, int *C);   //╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░ ╨▓╤Б╤В╨░╨▓╨║╨░╨╝╨╕
+void ShellSort(int *arr, int length, int *M, int *C);       //╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░ ╨и╨╡╨╗╨╗╨░, ╨┐╨╛╤Б╨╗╨╡╨┤╨╛╨▓╨░╤В╨╡╨╗╤М╨╜╨╛╤Б╤В╤М ╤И╨░╨│╨╛╨▓ ╨е╨╕╨▒╨▒╨░╤А╨┤╨░/╨Ъ╨╜╤Г╤В╨░ 1,3,7,15,31,...,((2^k)-1)
+//+ ╨┐╨╕╤А╨░╨╝╨╕╨┤╨░, ╨е╨╛╨░╤А╨░
+const int alg_count = 5;                                    //╤З╨╕╤Б╨╗╨╛ ╤А╨╡╨░╨╗╨╕╨╖╨╛╨▓╨░╨╜╨╜╤Л╤Е ╨░╨╗╨│╨╛╤А╨╕╤В╨╝╨╛╨▓
 /*
- * Функции вспомогательные
+ * ╨д╤Г╨╜╨║╤Ж╨╕╨╕ ╨▓╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╤Л╨╡
 */
-int PrngRanged(int exp, int seed); //возвращает песевдослучайное число в диапазоне 10^exp ... (10^(exp+1))-1; т.е. 10...99 для exp=1
+int PrngRanged(int exp, int seed); //╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨┐╨╡╤Б╨╡╨▓╨┤╨╛╤Б╨╗╤Г╤З╨░╨╣╨╜╨╛╨╡ ╤З╨╕╤Б╨╗╨╛ ╨▓ ╨┤╨╕╨░╨┐╨░╨╖╨╛╨╜╨╡ 10^exp ... (10^(exp+1))-1; ╤В.╨╡. 10...99 ╨┤╨╗╤П exp=1
 
 struct algorythm {char id[10]; char name[40]; void (*falg)(int *arr, int length, int *M, int *C);} algorythms[] = {
-    {"selection","Сортировка методом прямого выбора",SelectionSort},
-    {"bubble","Пузырьковая сортировка",BubbleSort},
-    {"coctail","Шейкерная сортировка",CoctailSort},
-    {"insertion","Сортировка вставками",InsertionSort},
-    {"shell","Сортировка Шелла",ShellSort},
+    {"selection","╨б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░ ╨╝╨╡╤В╨╛╨┤╨╛╨╝ ╨┐╤А╤П╨╝╨╛╨│╨╛ ╨▓╤Л╨▒╨╛╤А╨░",SelectionSort},
+    {"bubble","╨Я╤Г╨╖╤Л╤А╤М╨║╨╛╨▓╨░╤П ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░",BubbleSort},
+    {"coctail","╨и╨╡╨╣╨║╨╡╤А╨╜╨░╤П ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░",CoctailSort},
+    {"insertion","╨б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░ ╨▓╤Б╤В╨░╨▓╨║╨░╨╝╨╕",InsertionSort},
+    {"shell","╨б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░ ╨и╨╡╨╗╨╗╨░",ShellSort},
     };
 
 
 int PrngRanged(int exp, int seed){
-    // число num в диапазоне upper...lower может быть сгенераировано как num = (rand() % (upper - lower + 1)) + lower
+    // ╤З╨╕╤Б╨╗╨╛ num ╨▓ ╨┤╨╕╨░╨┐╨░╨╖╨╛╨╜╨╡ upper...lower ╨╝╨╛╨╢╨╡╤В ╨▒╤Л╤В╤М ╤Б╨│╨╡╨╜╨╡╤А╨░╨╕╤А╨╛╨▓╨░╨╜╨╛ ╨║╨░╨║ num = (rand() % (upper - lower + 1)) + lower
     srand(seed);
     int lim_l = (int)pow(10,exp);
     int lim_h = lim_l*9;
@@ -87,7 +87,7 @@ int FillArrayDscending(int *arr, int length){
 }
 
 int CalculateSequences(int *arr, int length){
-    //серией называется неубывающая последовательность элементов массива максимальной длины
+    //╤Б╨╡╤А╨╕╨╡╨╣ ╨╜╨░╨╖╤Л╨▓╨░╨╡╤В╤Б╤П ╨╜╨╡╤Г╨▒╤Л╨▓╨░╤О╤Й╨░╤П ╨┐╨╛╤Б╨╗╨╡╨┤╨╛╨▓╨░╤В╨╡╨╗╤М╨╜╨╛╤Б╤В╤М ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓ ╨╝╨░╤Б╤Б╨╕╨▓╨░ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╨┤╨╗╨╕╨╜╤Л
     if (length<=1)
     {
         return length;
@@ -158,7 +158,7 @@ void BubbleSort(int *arr, int length, int *M, int *C){
             }
         }
     }
-} // в наихудшем случае М меньше расчётного почему-то
+} // ╨▓ ╨╜╨░╨╕╤Е╤Г╨┤╤И╨╡╨╝ ╤Б╨╗╤Г╤З╨░╨╡ ╨Ь ╨╝╨╡╨╜╤М╤И╨╡ ╤А╨░╤Б╤З╤С╤В╨╜╨╛╨│╨╛ ╨┐╨╛╤З╨╡╨╝╤Г-╤В╨╛
 
 void CoctailSort(int *arr, int length, int *M, int *C){
     *M = *C = 0;
@@ -191,7 +191,7 @@ void CoctailSort(int *arr, int length, int *M, int *C){
         if (lastSwap==right) break;
         right = lastSwap;
     }
-} // в наихудшем случае М меньше расчётного почему-то
+} // ╨▓ ╨╜╨░╨╕╤Е╤Г╨┤╤И╨╡╨╝ ╤Б╨╗╤Г╤З╨░╨╡ ╨Ь ╨╝╨╡╨╜╤М╤И╨╡ ╤А╨░╤Б╤З╤С╤В╨╜╨╛╨│╨╛ ╨┐╨╛╤З╨╡╨╝╤Г-╤В╨╛
 
 void InsertionSort(int *arr, int length, int *M, int *C){
     /**M = *C = 0;
@@ -223,8 +223,8 @@ void InsertionSort(int *arr, int length, int *M, int *C){
 
 void ShellSort(int *arr, int length, int *M, int *C){
     *M = *C = 0;
-    //шаг сортировки k, количество сортировок h
-    //k = (2^h)-1; макс. h = log2(length)-1
+    //╤И╨░╨│ ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕ k, ╨║╨╛╨╗╨╕╤З╨╡╤Б╤В╨▓╨╛ ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨╛╨║ h
+    //k = (2^h)-1; ╨╝╨░╨║╤Б. h = log2(length)-1
     int h,k,i,j,temp;
     for (h=log2(length)-1;h>=1;h--){
         k = exp2(h)-1;
@@ -248,16 +248,16 @@ void ShellSort(int *arr, int length, int *M, int *C){
 int main(int argc, char *argv[])
 {
     if (argc<3){
-        printf("Укажите аргументы: длина_массива порядок_сортировки тип_сортировки1 [тип_сортировки2 ... n]\n");
-        printf("длина_массива: от 2 до 9999\n");
-        printf("порядок_сортировки: RND ASC DSC\n");
-        printf("типы_сортировки: selection bubble coctail insertion shell\n");
-        printf("Например: algo.exe 100 RND bubble coctail\n");
+        printf("╨г╨║╨░╨╢╨╕╤В╨╡ ╨░╤А╨│╤Г╨╝╨╡╨╜╤В╤Л: ╨┤╨╗╨╕╨╜╨░_╨╝╨░╤Б╤Б╨╕╨▓╨░ ╨┐╨╛╤А╤П╨┤╨╛╨║_╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕ ╤В╨╕╨┐_╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕1 [╤В╨╕╨┐_╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕2 ... n]\n");
+        printf("╨┤╨╗╨╕╨╜╨░_╨╝╨░╤Б╤Б╨╕╨▓╨░: ╨╛╤В 2 ╨┤╨╛ 9999\n");
+        printf("╨┐╨╛╤А╤П╨┤╨╛╨║_╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕: RND ASC DSC\n");
+        printf("╤В╨╕╨┐╤Л_╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕: selection bubble coctail insertion shell\n");
+        printf("╨Э╨░╨┐╤А╨╕╨╝╨╡╤А: algo.exe 100 RND bubble coctail\n");
         return -1;
     }
     int length;
     if ((length=atoi(argv[1]))<1){
-        printf("Не указана длина массива!\n");
+        printf("╨Э╨╡ ╤Г╨║╨░╨╖╨░╨╜╨░ ╨┤╨╗╨╕╨╜╨░ ╨╝╨░╤Б╤Б╨╕╨▓╨░!\n");
         return -1;
     } else if (length<2){
         length = 2;
@@ -277,15 +277,15 @@ int main(int argc, char *argv[])
         } else if (strstr(argv[2],"DSC")){
             sum = FillArrayDscending(arrSrc,length);
         } else {
-            printf("Не задан порядок сортировки исходного массива!\n");
+            printf("╨Э╨╡ ╨╖╨░╨┤╨░╨╜ ╨┐╨╛╤А╤П╨┤╨╛╨║ ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╨╛╨│╨╛ ╨╝╨░╤Б╤Б╨╕╨▓╨░!\n");
             return -1;
         }
         if (sum>0){
             system("cls");
-            printf("Исходный массив:\n");
+            printf("╨Ш╤Б╤Е╨╛╨┤╨╜╤Л╨╣ ╨╝╨░╤Б╤Б╨╕╨▓:\n");
             PrntArray(arrSrc,length);
             seq = CalculateSequences(arrSrc,length);
-            printf("Размер массива = %d; сумма элементов = %d; серий = %d\n",length,sum,seq);
+            printf("╨а╨░╨╖╨╝╨╡╤А ╨╝╨░╤Б╤Б╨╕╨▓╨░ = %d; ╤Б╤Г╨╝╨╝╨░ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓ = %d; ╤Б╨╡╤А╨╕╨╣ = %d\n",length,sum,seq);
         for (int i=3;i<argc;i++){
             struct algorythm *al = algorythms;
             for (int j=0;j<alg_count;j++,al++){
@@ -293,10 +293,10 @@ int main(int argc, char *argv[])
                     printf("\n%s:\n",al->name);
                     CopyArray(arrSrc, arrDst, length);
                     al->falg(arrDst,length,&M,&C);
-                    printf("сравнений C = %d; пересылок M = %d\n",C,M);
+                    printf("╤Б╤А╨░╨▓╨╜╨╡╨╜╨╕╨╣ C = %d; ╨┐╨╡╤А╨╡╤Б╤Л╨╗╨╛╨║ M = %d\n",C,M);
                     sum = PrntArray(arrDst,length);
                     seq = CalculateSequences(arrDst,length);
-                    printf("Размер массива = %d; сумма элементов = %d; серий = %d\n",length,sum,seq);
+                    printf("╨а╨░╨╖╨╝╨╡╤А ╨╝╨░╤Б╤Б╨╕╨▓╨░ = %d; ╤Б╤Г╨╝╨╝╨░ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓ = %d; ╤Б╨╡╤А╨╕╨╣ = %d\n",length,sum,seq);
                     break;
                 }
             }
@@ -304,7 +304,7 @@ int main(int argc, char *argv[])
         }
         free(arrSrc);
         free(arrDst);
-        printf("\nНажмите ESC для завершения или любую клавишу для повтора\n");
+        printf("\n╨Э╨░╨╢╨╝╨╕╤В╨╡ ESC ╨┤╨╗╤П ╨╖╨░╨▓╨╡╤А╤И╨╡╨╜╨╕╤П ╨╕╨╗╨╕ ╨╗╤О╨▒╤Г╤О ╨║╨╗╨░╨▓╨╕╤И╤Г ╨┤╨╗╤П ╨┐╨╛╨▓╤В╨╛╤А╨░\n");
         char ch = getch();
         system("cls");
         switch(ch){
@@ -313,4 +313,3 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
-//https://en.wikipedia.org/wiki/Sorting_algorithm
