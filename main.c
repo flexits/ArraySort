@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <inttypes.h>
 #include <malloc.h>
 #include <time.h>
 #include <math.h>
@@ -7,95 +10,112 @@
 #include <conio.h>
 /*
  * Функции работы с массивами
-*/
-int PrntArray(int *arr, int length);            //выводит массив на экран, возвращает сумму элементов
-int FillArrayRandomizd(int *arr, int length);   //заполняет массив заданной длинны псевдослучайными числами, ворзвращает сумму этих чисел
-int FillArrayAscending(int *arr, int length);   //то же + сортирует массив в прямом порядке
-int FillArrayDscending(int *arr, int length);   //то же + сортирует массив в обратном порядке
-int CalculateSequences(int *arr, int length);   //подсчёт числа серий в массиве
-void CopyArray(int *arrSrc, int *arrDst, int length);   //копирует элементы массива arrSrc в arrDst
-void MirrorArray(int *arr, int length);         //отразить порядок следования элементов в массиве
+ */
+uintmax_t PrntArray(int *arr, size_t length);            //выводит массив arr длины length на экран, возвращает сумму элементов
+uintmax_t FillArrayRandomizd(int *arr, size_t length);   //заполняет массив заданной длинны псевдослучайными числами, ворзвращает сумму этих чисел
+uintmax_t FillArrayAscending(int *arr, size_t length);   //то же + сортирует массив в прямом порядке
+uintmax_t FillArrayDscending(int *arr, size_t length);   //то же + сортирует массив в обратном порядке
+size_t CalculateSequences(int *arr, size_t length);      //подсчёт числа серий в массиве
+void CopyArray(int *arrSrc, int *arrDst, size_t length); //копирует элементы массива arrSrc в arrDst
+void MirrorArray(int *arr, size_t length);               //отразить порядок следования элементов в массиве
 /*
  * Функции сортировки
-*/
-void SelectionSort(int *arr, int length, int *M, int *C);   //сортировка методом прямого выбора
-void BubbleSort(int *arr, int length, int *M, int *C);      //пузырьковая сортировка
-void CoctailSort(int *arr, int length, int *M, int *C);     //шейкерная сортировка
-void InsertionSort(int *arr, int length, int *M, int *C);   //сортировка вставками
-void ShellSort(int *arr, int length, int *M, int *C);       //сортировка Шелла, последовательность шагов Хиббарда/Кнута 1,3,7,15,31,...,((2^k)-1)
-//+ пирамида, Хоара
-const int alg_count = 5;                                    //число реализованных алгоритмов
+ */
+// М - число перемещений, С - число сравнений элементов массива
+void SelectionSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);   //сортировка методом прямого выбора
+void BubbleSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);      //пузырьковая сортировка
+void CoctailSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);     //шейкерная сортировка
+void InsertionSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);   //сортировка вставками
+void ShellSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);       //сортировка Шелла, последовательность шагов Хиббарда 1,3,7,15,31,...,((2^k)-1)
+void HeapSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);        //пирамидальная сортировка
+void QuickSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);       //сортировка Хоара //обёртка для qsrt()
 /*
  * Функции вспомогательные
-*/
-int PrngRanged(int exp, int seed); //возвращает песевдослучайное число в диапазоне 10^exp ... (10^(exp+1))-1; т.е. 10...99 для exp=1
-
-struct algorythm {char id[10]; char name[40]; void (*falg)(int *arr, int length, int *M, int *C);} algorythms[] = {
+ */
+static inline int PrngRanged(int exp, int seed);     //возвращает псевдослучайное число в диапазоне 10^exp ... (10^(exp+1))-1; т.е. 10...99 для exp=1
+static inline void swap(int *a, int *b);             //меняет местами значения двух переменных
+static inline void heapify (int *arr, size_t size, size_t node, uintmax_t *M, uintmax_t *C);     //построение пирамиды, начиная с элемента массива node
+static inline size_t find_pivot (int *arr, size_t start, size_t end, uintmax_t *M, uintmax_t *C);//нахождение опорного элемента в алгоритме Хоара
+static inline void qsrt (int *arr, size_t start, size_t end, uintmax_t *M, uintmax_t *C);        //рекурсивная реализация алгоритма Хоара
+// для меню программы: число алгоритмов и их перечисление с указателями на функции
+static const int alg_count = 7;
+static const struct algorythm {char id[10]; char name[40]; void (*falg)(int *arr, size_t length, uintmax_t *M, uintmax_t *C);} algorythms[] = {
     {"selection","Сортировка методом прямого выбора",SelectionSort},
     {"bubble","Пузырьковая сортировка",BubbleSort},
     {"coctail","Шейкерная сортировка",CoctailSort},
     {"insertion","Сортировка вставками",InsertionSort},
     {"shell","Сортировка Шелла",ShellSort},
+    {"heap","Пирамидальная сортировка",HeapSort},
+    {"quick","Сортировка Хоара",QuickSort},
     };
 
-
-int PrngRanged(int exp, int seed){
+static inline int PrngRanged(int exp, int seed){
     // число num в диапазоне upper...lower может быть сгенераировано как num = (rand() % (upper - lower + 1)) + lower
     srand(seed);
-    int lim_l = (int)pow(10,exp);
-    int lim_h = lim_l*9;
-    return rand()%lim_h+lim_l;
+    if (exp>8){ //avoid int overflow
+        return rand();
+    } else{
+        int lim_l = (int)pow(10,exp);
+        int lim_h = lim_l*9;
+        return rand()%lim_h+lim_l;
+    }
 }
 
-int PrntArray(int *arr, int length){
-    int sum = 0;
-    for (int i=0;i<length;i++){
-        printf("[%u] ",*arr);
+static inline void swap(int *a, int *b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+uintmax_t PrntArray(int *arr, size_t length){
+    uintmax_t sum = 0;
+    bool prnt = (length < 1000);
+    for (size_t i=0;i<length;i++){
+        if (prnt){
+            printf("[%u] ",*arr);
+        }
         sum += *arr++;
     }
     printf("\n");
     return sum;
 }
 
-int FillArrayRandomizd(int *arr, int length){
+uintmax_t FillArrayRandomizd(int *arr, size_t length){
     int exp = (int)log10f(length);
-    if (exp>3){
-        return -1; //avoid overflow when calculating int sum
-    }
-    //struct timespec ts;
-    //timespec_get(ts, time(NULL));
-    int sum = 0;
-    for (int i=0;i<length;i++){
-        sum += *arr++ = PrngRanged(exp,time(NULL)*i);
+    /*struct timespec ts;
+    timespec_get(ts, time(NULL));*/
+    uintmax_t sum = 0;
+    for (size_t i=0;i<length;i++){
+        sum += (*arr++) = PrngRanged(exp,time(NULL)*i);
     }
     return sum;
 }
 
-int FillArrayAscending(int *arr, int length){
-    int i=0;
-    int sum = FillArrayRandomizd(arr, length);
-    SelectionSort(arr, length, &i, &i);
+uintmax_t FillArrayAscending(int *arr, size_t length){
+    uintmax_t i=0;
+    uintmax_t sum = FillArrayRandomizd(arr, length);
+    ShellSort(arr, length, &i, &i);
     return sum;
 }
 
-int FillArrayDscending(int *arr, int length){
-    int i=0;
-    int sum = FillArrayRandomizd(arr, length);
-    SelectionSort(arr, length, &i, &i);
+uintmax_t FillArrayDscending(int *arr, size_t length){
+    uintmax_t i=0;
+    uintmax_t sum = FillArrayRandomizd(arr, length);
+    ShellSort(arr, length, &i, &i);
     MirrorArray(arr,length);
     return sum;
 }
 
-int CalculateSequences(int *arr, int length){
+size_t CalculateSequences(int *arr, size_t length){
     //серией называется неубывающая последовательность элементов массива максимальной длины
     if (length<=1)
     {
         return length;
     }
-    int counter = 1;
+    size_t counter = 1;
     int prev = *arr++;
-    int curr;
-    for (int i=1;i<length;i++){
+    int curr = prev;
+    for (size_t i=1;i<length;i++){
         curr = *arr++;
         if (curr<prev){
             counter++;
@@ -105,16 +125,15 @@ int CalculateSequences(int *arr, int length){
     return counter;
 }
 
-void CopyArray(int *arrSrc, int *arrDst, int length){
-    for (int i=0;i<length;i++){
-        //arrDst[i] = arrSrc[i];
+void CopyArray(int *arrSrc, int *arrDst, size_t length){
+    for (size_t i=0;i<length;i++){
         *arrDst++ = *arrSrc++;
     }
 }
 
-void MirrorArray(int *arr, int length){
-    int *arrTemp = (int *)malloc(length*sizeof(int));
-    int i,j;
+void MirrorArray(int *arr, size_t length){
+    int *arrTemp = malloc(length*sizeof(int));
+    size_t i,j;
     for (i=0,j=length-1;i<length;i++,j--){
         arrTemp[j] = arr[i];
     }
@@ -124,10 +143,10 @@ void MirrorArray(int *arr, int length){
     free(arrTemp);
 }
 
-void SelectionSort(int *arr, int length, int *M, int *C){
+void SelectionSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
     *M = *C = 0;
-    int *first; int *smallest;
-    int temp,i,j;
+    int *first, *smallest;
+    size_t i,j;
     for (i=0;i<length-1;i++){
         first = &arr[i];
         smallest = &arr[i];
@@ -137,42 +156,34 @@ void SelectionSort(int *arr, int length, int *M, int *C){
                 smallest = &arr[j];
             }
         }
+        swap(first, smallest);
         *M += 3;
-        temp = *first;
-        *first = *smallest;
-        *smallest = temp;
     }
 }
 
-void BubbleSort(int *arr, int length, int *M, int *C){
+void BubbleSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
     *M = *C = 0;
-    int temp,i,j;
+    size_t i,j;
     for (i=0;i<length-1;i++){
         for (j=length-1;j>i;j--){
             (*C)++;
             if (arr[j]<arr[j-1]){
                 *M += 3;
-                temp = arr[j];
-                arr[j] = arr[j-1];
-                arr[j-1] = temp;
+                swap(&arr[j], &arr[j-1]);
             }
         }
     }
 } // в наихудшем случае М меньше расчётного почему-то
 
-void CoctailSort(int *arr, int length, int *M, int *C){
+void CoctailSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
     *M = *C = 0;
-    int temp,i;
-    int left = 0, right = length-1;
-    int lastSwap = 0;
+    size_t i, lastSwap = 0, left = 0, right = length-1;
     while (left<right){
         for (i=right;i>left;i--){
             (*C)++;
             if (arr[i]<arr[i-1]){
                 *M += 3;
-                temp = arr[i];
-                arr[i] = arr[i-1];
-                arr[i-1] = temp;
+                swap(&arr[i], &arr[i-1]);
                 lastSwap = i;
             }
         }
@@ -182,9 +193,7 @@ void CoctailSort(int *arr, int length, int *M, int *C){
             (*C)++;
             if (arr[i]>arr[i+1]){
                 *M += 3;
-                temp = arr[i];
-                arr[i] = arr[i+1];
-                arr[i+1] = temp;
+                swap(&arr[i], &arr[i+1]);
                 lastSwap = i;
             }
         }
@@ -193,7 +202,7 @@ void CoctailSort(int *arr, int length, int *M, int *C){
     }
 } // в наихудшем случае М меньше расчётного почему-то
 
-void InsertionSort(int *arr, int length, int *M, int *C){
+void InsertionSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
     /**M = *C = 0;
     int i,j,temp;
     for (i=1;i<length;i++){
@@ -204,31 +213,31 @@ void InsertionSort(int *arr, int length, int *M, int *C){
         arr[j+1] = temp;
     }*/
     *M = *C = 0;
-    int i,j,temp;
+    intmax_t i, j;
+    int temp;
     for (i=1;i<length;i++){
         temp = arr[i];
         (*M)++;
-        for (j=i-1;j>=0;j--){
+        for (j=i-1;j>=0;j--){ //size_t j always >=0
             (*C)++;
             if (arr[j]>temp){
                 (*M)++;
                 arr[j+1] = arr[j];
             } else break;
         }
-
         arr[j+1] = temp;
         (*M)++;
     }
 }
 
-void ShellSort(int *arr, int length, int *M, int *C){
+void ShellSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
     *M = *C = 0;
     //шаг сортировки k, количество сортировок h
     //k = (2^h)-1; макс. h = log2(length)-1
-    int h,k,i,j,temp;
+    int h,k,temp;
+    intmax_t i,j;
     for (h=log2(length)-1;h>=1;h--){
         k = exp2(h)-1;
-        //printf("k=%d, h=%d\n",k,h);
         for (i=k;i<length;i++){
                 temp = arr[i];
                 (*M)++;
@@ -245,30 +254,105 @@ void ShellSort(int *arr, int length, int *M, int *C){
     }
 }
 
+static inline void heapify (int *arr, size_t size, size_t node, uintmax_t *M, uintmax_t *C){
+    size_t largest = node;
+    size_t lchild = 2*node+1;
+    size_t rchild = 2*node+2;
+    (*C)++;
+    if ((lchild<size)&&(arr[lchild]>arr[largest])){
+        largest = lchild;
+        }
+    (*C)++;
+    if ((rchild<size)&&(arr[rchild]>arr[largest])){
+        largest = rchild;
+    }
+    if (largest!=node){
+        *M += 3;
+        swap(&arr[largest],&arr[node]);
+        heapify(arr, size, largest, M, C);
+    }
+}
+
+void HeapSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
+    *M = *C = 0;
+    for (intmax_t i=length/2; i>=0; i--){
+        heapify(arr, length, i-1, M, C);
+    }
+    for (intmax_t i=length-1; i>=0; i--){
+        *M += 3;
+        swap(&arr[0],&arr[i]);
+        heapify(arr, i, 0, M, C);
+    }
+}
+
+static inline size_t find_pivot (int *arr, size_t start, size_t end, uintmax_t *M, uintmax_t *C){
+    size_t i = start;
+    size_t j = end;
+    //int pivot = arr[(start+end)/2];
+    int pivot = arr[start];
+    for (;;){
+        while (arr[i]<pivot){
+            i++;
+            (*C)++;
+        }
+        while (arr[j]>pivot){
+            j--;
+            (*C)++;
+        }
+        (*C)++;
+        if (i>=j){
+            break;
+        }
+        *M += 3;
+        swap(&arr[i++],&arr[j--]);
+    }
+    return j;
+}
+
+static inline void qsrt (int *arr, size_t start, size_t end, uintmax_t *M, uintmax_t *C){
+    if (start<end){
+        size_t ipivot = find_pivot(arr, start, end, M, C);
+        qsrt(arr, start, ipivot, M, C); //лев. часть  [0, indpivot]
+        qsrt(arr, ipivot+1, end, M, C); //прав. часть [indpivot, length-1]
+    }
+}
+
+void QuickSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
+    *M = *C = 0;
+    qsrt(arr,0,length-1, M, C);
+}
+
 int main(int argc, char *argv[])
 {
     if (argc<3){
         printf("Укажите аргументы: длина_массива порядок_сортировки тип_сортировки1 [тип_сортировки2 ... n]\n");
-        printf("длина_массива: от 2 до 9999\n");
+        printf("длина_массива: минимум 2, максимум\n");
         printf("порядок_сортировки: RND ASC DSC\n");
-        printf("типы_сортировки: selection bubble coctail insertion shell\n");
-        printf("Например: algo.exe 100 RND bubble coctail\n");
+        printf("типы_сортировки: selection bubble coctail insertion shell heap quick\n");
+        printf("Например: algo.exe 100 RND coctail shell\n");
         return -1;
     }
-    int length;
+    size_t length;
     if ((length=atoi(argv[1]))<1){
         printf("Не указана длина массива!\n");
         return -1;
     } else if (length<2){
         length = 2;
-    } else if (length>9999){
-        length = 9999;
-    }
+    } /*else if (length>9999){
+        length = 9999; // 100 000 000 max tested, *10 = error
+    }*/
     int *arrSrc, *arrDst;
-    int M, C, seq, sum;
+    size_t seq;
+    uintmax_t sum, M, C;
     for (;;){
-        arrSrc = malloc(length*sizeof(int));
-        arrDst = malloc(length*sizeof(int));
+        if ((arrSrc = malloc(length*sizeof(int))) == NULL){
+            printf("Ошибка выделения памяти!\n");
+            return -1;
+        }
+        if ((arrDst = malloc(length*sizeof(int))) == NULL){
+            printf("Ошибка выделения памяти!\n");
+            return -1;
+        }
         M = C = seq = sum = 0;
         if (strstr(argv[2],"RND")){
             sum = FillArrayRandomizd(arrSrc,length);
@@ -285,18 +369,18 @@ int main(int argc, char *argv[])
             printf("Исходный массив:\n");
             PrntArray(arrSrc,length);
             seq = CalculateSequences(arrSrc,length);
-            printf("Размер массива = %d; сумма элементов = %d; серий = %d\n",length,sum,seq);
+            printf("Размер массива = %"PRIu64"; сумма элементов = %"PRIu64"; серий = %"PRIu64"\n",length,sum,seq);
         for (int i=3;i<argc;i++){
-            struct algorythm *al = algorythms;
+            const struct algorythm *al = algorythms;
             for (int j=0;j<alg_count;j++,al++){
                 if (strstr(argv[i],al->id)){
                     printf("\n%s:\n",al->name);
                     CopyArray(arrSrc, arrDst, length);
                     al->falg(arrDst,length,&M,&C);
-                    printf("сравнений C = %d; пересылок M = %d\n",C,M);
+                    printf("сравнений C = %"PRIu64"; пересылок M = %"PRIu64"\n",C,M);
                     sum = PrntArray(arrDst,length);
                     seq = CalculateSequences(arrDst,length);
-                    printf("Размер массива = %d; сумма элементов = %d; серий = %d\n",length,sum,seq);
+                    printf("Размер массива = %"PRIu64"; сумма элементов = %"PRIu64"; серий = %"PRIu64"\n",length,sum,seq);
                     break;
                 }
             }
@@ -313,3 +397,6 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
+//https://en.wikipedia.org/wiki/Sorting_algorithm
+//https://www.programiz.com/dsa/heap-sort
+//https://neerc.ifmo.ru/wiki/index.php?title=%D0%91%D1%8B%D1%81%D1%82%D1%80%D0%B0%D1%8F_%D1%81%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0
