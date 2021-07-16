@@ -9,48 +9,48 @@
 #include <string.h>
 #include <conio.h>
 /*
- * –§—É–Ω–∫—Ü–∏–∏ —Ä–∞–±–æ—Ç—ã —Å –º–∞—Å—Å–∏–≤–∞–º–∏
+ * î„≠™Ê®® ‡†°Æ‚Î · ¨†··®¢†¨®
  */
-uintmax_t PrntArray(int *arr, size_t length);            //–≤—ã–≤–æ–¥–∏—Ç –º–∞—Å—Å–∏–≤ arr –¥–ª–∏–Ω—ã length –Ω–∞ —ç–∫—Ä–∞–Ω, –≤–æ–∑–≤—Ä–∞—â–∞–µ—Ç —Å—É–º–º—É —ç–ª–µ–º–µ–Ω—Ç–æ–≤
-uintmax_t FillArrayRandomizd(int *arr, size_t length);   //–∑–∞–ø–æ–ª–Ω—è–µ—Ç –º–∞—Å—Å–∏–≤ –∑–∞–¥–∞–Ω–Ω–æ–π –¥–ª–∏–Ω–Ω—ã –ø—Å–µ–≤–¥–æ—Å–ª—É—á–∞–π–Ω—ã–º–∏ —á–∏—Å–ª–∞–º–∏, –≤–æ—Ä–∑–≤—Ä–∞—â–∞–µ—Ç —Å—É–º–º—É —ç—Ç–∏—Ö —á–∏—Å–µ–ª
-uintmax_t FillArrayAscending(int *arr, size_t length);   //—Ç–æ –∂–µ + —Å–æ—Ä—Ç–∏—Ä—É–µ—Ç –º–∞—Å—Å–∏–≤ –≤ –ø—Ä—è–º–æ–º –ø–æ—Ä—è–¥–∫–µ
-uintmax_t FillArrayDscending(int *arr, size_t length);   //—Ç–æ –∂–µ + —Å–æ—Ä—Ç–∏—Ä—É–µ—Ç –º–∞—Å—Å–∏–≤ –≤ –æ–±—Ä–∞—Ç–Ω–æ–º –ø–æ—Ä—è–¥–∫–µ
-size_t CalculateSequences(int *arr, size_t length);      //–ø–æ–¥—Å—á—ë—Ç —á–∏—Å–ª–∞ —Å–µ—Ä–∏–π –≤ –º–∞—Å—Å–∏–≤–µ
-void CopyArray(int *arrSrc, int *arrDst, size_t length); //–∫–æ–ø–∏—Ä—É–µ—Ç —ç–ª–µ–º–µ–Ω—Ç—ã –º–∞—Å—Å–∏–≤–∞ arrSrc –≤ arrDst
-void MirrorArray(int *arr, size_t length);               //–æ—Ç—Ä–∞–∑–∏—Ç—å –ø–æ—Ä—è–¥–æ–∫ —Å–ª–µ–¥–æ–≤–∞–Ω–∏—è —ç–ª–µ–º–µ–Ω—Ç–æ–≤ –≤ –º–∞—Å—Å–∏–≤–µ
+uintmax_t PrntArray(int *arr, size_t length);            //¢Î¢Æ§®‚ ¨†··®¢ arr §´®≠Î length ≠† Ì™‡†≠, ¢Æß¢‡†È†•‚ ·„¨¨„ Ì´•¨•≠‚Æ¢
+uintmax_t FillArrayRandomizd(int *arr, size_t length);   //ß†ØÆ´≠Ô•‚ ¨†··®¢ ß†§†≠≠Æ© §´®≠≠Î Ø·•¢§Æ·´„Á†©≠Î¨® Á®·´†¨®, ¢Æ‡ß¢‡†È†•‚ ·„¨¨„ Ì‚®Â Á®·•´
+uintmax_t FillArrayAscending(int *arr, size_t length);   //‚Æ ¶• + ·Æ‡‚®‡„•‚ ¨†··®¢ ¢ Ø‡Ô¨Æ¨ ØÆ‡Ô§™•
+uintmax_t FillArrayDscending(int *arr, size_t length);   //‚Æ ¶• + ·Æ‡‚®‡„•‚ ¨†··®¢ ¢ Æ°‡†‚≠Æ¨ ØÆ‡Ô§™•
+size_t CalculateSequences(int *arr, size_t length);      //ØÆ§·ÁÒ‚ Á®·´† ·•‡®© ¢ ¨†··®¢•
+void CopyArray(int *arrSrc, int *arrDst, size_t length); //™ÆØ®‡„•‚ Ì´•¨•≠‚Î ¨†··®¢† arrSrc ¢ arrDst
+void MirrorArray(int *arr, size_t length);               //Æ‚‡†ß®‚Ï ØÆ‡Ô§Æ™ ·´•§Æ¢†≠®Ô Ì´•¨•≠‚Æ¢ ¢ ¨†··®¢•
 /*
- * –§—É–Ω–∫—Ü–∏–∏ —Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∏
+ * î„≠™Ê®® ·Æ‡‚®‡Æ¢™®
  */
-// –ú - —á–∏—Å–ª–æ –ø–µ—Ä–µ–º–µ—â–µ–Ω–∏–π, –° - —á–∏—Å–ª–æ —Å—Ä–∞–≤–Ω–µ–Ω–∏–π —ç–ª–µ–º–µ–Ω—Ç–æ–≤ –º–∞—Å—Å–∏–≤–∞
-void SelectionSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);   //—Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞ –º–µ—Ç–æ–¥–æ–º –ø—Ä—è–º–æ–≥–æ –≤—ã–±–æ—Ä–∞
-void BubbleSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);      //–ø—É–∑—ã—Ä—å–∫–æ–≤–∞—è —Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞
-void CoctailSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);     //—à–µ–π–∫–µ—Ä–Ω–∞—è —Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞
-void InsertionSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);   //—Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞ –≤—Å—Ç–∞–≤–∫–∞–º–∏
-void ShellSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);       //—Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞ –®–µ–ª–ª–∞, –ø–æ—Å–ª–µ–¥–æ–≤–∞—Ç–µ–ª—å–Ω–æ—Å—Ç—å —à–∞–≥–æ–≤ –•–∏–±–±–∞—Ä–¥–∞ 1,3,7,15,31,...,((2^k)-1)
-void HeapSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);        //–ø–∏—Ä–∞–º–∏–¥–∞–ª—å–Ω–∞—è —Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞
-void QuickSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);       //—Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞ –•–æ–∞—Ä–∞ //–æ–±—ë—Ä—Ç–∫–∞ –¥–ª—è qsrt()
+// å - Á®·´Æ Ø•‡•¨•È•≠®©, ë - Á®·´Æ ·‡†¢≠•≠®© Ì´•¨•≠‚Æ¢ ¨†··®¢†
+void SelectionSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);   //·Æ‡‚®‡Æ¢™† ¨•‚Æ§Æ¨ Ø‡Ô¨Æ£Æ ¢Î°Æ‡†
+void BubbleSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);      //Ø„ßÎ‡Ï™Æ¢†Ô ·Æ‡‚®‡Æ¢™†
+void CoctailSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);     //Ë•©™•‡≠†Ô ·Æ‡‚®‡Æ¢™†
+void InsertionSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);   //·Æ‡‚®‡Æ¢™† ¢·‚†¢™†¨®
+void ShellSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);       //·Æ‡‚®‡Æ¢™† ò•´´†, ØÆ·´•§Æ¢†‚•´Ï≠Æ·‚Ï Ë†£Æ¢ ï®°°†‡§† 1,3,7,15,31,...,((2^k)-1)
+void HeapSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);        //Ø®‡†¨®§†´Ï≠†Ô ·Æ‡‚®‡Æ¢™†
+void QuickSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C);       //·Æ‡‚®‡Æ¢™† ïÆ†‡† //Æ°Ò‡‚™† §´Ô qsrt()
 /*
- * –§—É–Ω–∫—Ü–∏–∏ –≤—Å–ø–æ–º–æ–≥–∞—Ç–µ–ª—å–Ω—ã–µ
+ * î„≠™Ê®® ¢·ØÆ¨Æ£†‚•´Ï≠Î•
  */
-static inline int PrngRanged(int exp, int seed);     //–≤–æ–∑–≤—Ä–∞—â–∞–µ—Ç –ø—Å–µ–≤–¥–æ—Å–ª—É—á–∞–π–Ω–æ–µ —á–∏—Å–ª–æ –≤ –¥–∏–∞–ø–∞–∑–æ–Ω–µ 10^exp ... (10^(exp+1))-1; —Ç.–µ. 10...99 –¥–ª—è exp=1
-static inline void swap(int *a, int *b);             //–º–µ–Ω—è–µ—Ç –º–µ—Å—Ç–∞–º–∏ –∑–Ω–∞—á–µ–Ω–∏—è –¥–≤—É—Ö –ø–µ—Ä–µ–º–µ–Ω–Ω—ã—Ö
-static inline void heapify (int *arr, size_t size, size_t node, uintmax_t *M, uintmax_t *C);     //–ø–æ—Å—Ç—Ä–æ–µ–Ω–∏–µ –ø–∏—Ä–∞–º–∏–¥—ã, –Ω–∞—á–∏–Ω–∞—è —Å —ç–ª–µ–º–µ–Ω—Ç–∞ –º–∞—Å—Å–∏–≤–∞ node
-static inline size_t find_pivot (int *arr, size_t start, size_t end, uintmax_t *M, uintmax_t *C);//–Ω–∞—Ö–æ–∂–¥–µ–Ω–∏–µ –æ–ø–æ—Ä–Ω–æ–≥–æ —ç–ª–µ–º–µ–Ω—Ç–∞ –≤ –∞–ª–≥–æ—Ä–∏—Ç–º–µ –•–æ–∞—Ä–∞
-static inline void qsrt (int *arr, size_t start, size_t end, uintmax_t *M, uintmax_t *C);        //—Ä–µ–∫—É—Ä—Å–∏–≤–Ω–∞—è —Ä–µ–∞–ª–∏–∑–∞—Ü–∏—è –∞–ª–≥–æ—Ä–∏—Ç–º–∞ –•–æ–∞—Ä–∞
-// –¥–ª—è –º–µ–Ω—é –ø—Ä–æ–≥—Ä–∞–º–º—ã: —á–∏—Å–ª–æ –∞–ª–≥–æ—Ä–∏—Ç–º–æ–≤ –∏ –∏—Ö –ø–µ—Ä–µ—á–∏—Å–ª–µ–Ω–∏–µ —Å —É–∫–∞–∑–∞—Ç–µ–ª—è–º–∏ –Ω–∞ —Ñ—É–Ω–∫—Ü–∏–∏
+static inline int PrngRanged(int exp, int seed);     //¢Æß¢‡†È†•‚ Ø·•¢§Æ·´„Á†©≠Æ• Á®·´Æ ¢ §®†Ø†ßÆ≠• 10^exp ... (10^(exp+1))-1; ‚.•. 10...99 §´Ô exp=1
+static inline void swap(int *a, int *b);             //¨•≠Ô•‚ ¨•·‚†¨® ß≠†Á•≠®Ô §¢„Â Ø•‡•¨•≠≠ÎÂ
+static inline void heapify (int *arr, size_t size, size_t node, uintmax_t *M, uintmax_t *C);     //ØÆ·‚‡Æ•≠®• Ø®‡†¨®§Î, ≠†Á®≠†Ô · Ì´•¨•≠‚† ¨†··®¢† node
+static inline size_t find_pivot (int *arr, size_t start, size_t end, uintmax_t *M, uintmax_t *C);//≠†ÂÆ¶§•≠®• ÆØÆ‡≠Æ£Æ Ì´•¨•≠‚† ¢ †´£Æ‡®‚¨• ïÆ†‡†
+static inline void qsrt (int *arr, size_t start, size_t end, uintmax_t *M, uintmax_t *C);        //‡•™„‡·®¢≠†Ô ‡•†´®ß†Ê®Ô †´£Æ‡®‚¨† ïÆ†‡†
+// §´Ô ¨•≠Ó Ø‡Æ£‡†¨¨Î: Á®·´Æ †´£Æ‡®‚¨Æ¢ ® ®Â Ø•‡•Á®·´•≠®• · „™†ß†‚•´Ô¨® ≠† ‰„≠™Ê®®
 static const int alg_count = 7;
 static const struct algorythm {char id[10]; char name[40]; void (*falg)(int *arr, size_t length, uintmax_t *M, uintmax_t *C);} algorythms[] = {
-    {"selection","–°–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞ –º–µ—Ç–æ–¥–æ–º –ø—Ä—è–º–æ–≥–æ –≤—ã–±–æ—Ä–∞",SelectionSort},
-    {"bubble","–ü—É–∑—ã—Ä—å–∫–æ–≤–∞—è —Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞",BubbleSort},
-    {"coctail","–®–µ–π–∫–µ—Ä–Ω–∞—è —Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞",CoctailSort},
-    {"insertion","–°–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞ –≤—Å—Ç–∞–≤–∫–∞–º–∏",InsertionSort},
-    {"shell","–°–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞ –®–µ–ª–ª–∞",ShellSort},
-    {"heap","–ü–∏—Ä–∞–º–∏–¥–∞–ª—å–Ω–∞—è —Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞",HeapSort},
-    {"quick","–°–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞ –•–æ–∞—Ä–∞",QuickSort},
+    {"selection","ëÆ‡‚®‡Æ¢™† ¨•‚Æ§Æ¨ Ø‡Ô¨Æ£Æ ¢Î°Æ‡†",SelectionSort},
+    {"bubble","è„ßÎ‡Ï™Æ¢†Ô ·Æ‡‚®‡Æ¢™†",BubbleSort},
+    {"coctail","ò•©™•‡≠†Ô ·Æ‡‚®‡Æ¢™†",CoctailSort},
+    {"insertion","ëÆ‡‚®‡Æ¢™† ¢·‚†¢™†¨®",InsertionSort},
+    {"shell","ëÆ‡‚®‡Æ¢™† ò•´´†",ShellSort},
+    {"heap","è®‡†¨®§†´Ï≠†Ô ·Æ‡‚®‡Æ¢™†",HeapSort},
+    {"quick","ëÆ‡‚®‡Æ¢™† ïÆ†‡†",QuickSort},
     };
 
 static inline int PrngRanged(int exp, int seed){
-    // —á–∏—Å–ª–æ num –≤ –¥–∏–∞–ø–∞–∑–æ–Ω–µ upper...lower –º–æ–∂–µ—Ç –±—ã—Ç—å —Å–≥–µ–Ω–µ—Ä–∞–∏—Ä–æ–≤–∞–Ω–æ –∫–∞–∫ num = (rand() % (upper - lower + 1)) + lower
+    // Á®·´Æ num ¢ §®†Ø†ßÆ≠• upper...lower ¨Æ¶•‚ °Î‚Ï ·£•≠•‡†®‡Æ¢†≠Æ ™†™ num = (rand() % (upper - lower + 1)) + lower
     srand(seed);
     if (exp>8){ //avoid int overflow
         return rand();
@@ -94,20 +94,18 @@ uintmax_t FillArrayRandomizd(int *arr, size_t length){
 uintmax_t FillArrayAscending(int *arr, size_t length){
     uintmax_t i=0;
     uintmax_t sum = FillArrayRandomizd(arr, length);
-    ShellSort(arr, length, &i, &i);
+    QuickSort(arr, length, &i, &i);
     return sum;
 }
 
 uintmax_t FillArrayDscending(int *arr, size_t length){
-    uintmax_t i=0;
-    uintmax_t sum = FillArrayRandomizd(arr, length);
-    ShellSort(arr, length, &i, &i);
+    uintmax_t sum = FillArrayAscending(arr, length);
     MirrorArray(arr,length);
     return sum;
 }
 
 size_t CalculateSequences(int *arr, size_t length){
-    //—Å–µ—Ä–∏–µ–π –Ω–∞–∑—ã–≤–∞–µ—Ç—Å—è –Ω–µ—É–±—ã–≤–∞—é—â–∞—è –ø–æ—Å–ª–µ–¥–æ–≤–∞—Ç–µ–ª—å–Ω–æ—Å—Ç—å —ç–ª–µ–º–µ–Ω—Ç–æ–≤ –º–∞—Å—Å–∏–≤–∞ –º–∞–∫—Å–∏–º–∞–ª—å–Ω–æ–π –¥–ª–∏–Ω—ã
+    //·•‡®•© ≠†ßÎ¢†•‚·Ô ≠•„°Î¢†ÓÈ†Ô ØÆ·´•§Æ¢†‚•´Ï≠Æ·‚Ï Ì´•¨•≠‚Æ¢ ¨†··®¢† ¨†™·®¨†´Ï≠Æ© §´®≠Î
     if (length<=1)
     {
         return length;
@@ -173,7 +171,7 @@ void BubbleSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
             }
         }
     }
-} // –≤ –Ω–∞–∏—Ö—É–¥—à–µ–º —Å–ª—É—á–∞–µ –ú –º–µ–Ω—å—à–µ —Ä–∞—Å—á—ë—Ç–Ω–æ–≥–æ –ø–æ—á–µ–º—É-—Ç–æ
+}
 
 void CoctailSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
     *M = *C = 0;
@@ -200,7 +198,7 @@ void CoctailSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
         if (lastSwap==right) break;
         right = lastSwap;
     }
-} // –≤ –Ω–∞–∏—Ö—É–¥—à–µ–º —Å–ª—É—á–∞–µ –ú –º–µ–Ω—å—à–µ —Ä–∞—Å—á—ë—Ç–Ω–æ–≥–æ –ø–æ—á–µ–º—É-—Ç–æ
+}
 
 void InsertionSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
     /**M = *C = 0;
@@ -232,8 +230,8 @@ void InsertionSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
 
 void ShellSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
     *M = *C = 0;
-    //—à–∞–≥ —Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∏ k, –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ —Å–æ—Ä—Ç–∏—Ä–æ–≤–æ–∫ h
-    //k = (2^h)-1; –º–∞–∫—Å. h = log2(length)-1
+    //Ë†£ ·Æ‡‚®‡Æ¢™® k, ™Æ´®Á•·‚¢Æ ·Æ‡‚®‡Æ¢Æ™ h
+    //k = (2^h)-1; ¨†™·. h = log2(length)-1
     int h,k,temp;
     intmax_t i,j;
     for (h=log2(length)-1;h>=1;h--){
@@ -288,8 +286,8 @@ void HeapSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
 static inline size_t find_pivot (int *arr, size_t start, size_t end, uintmax_t *M, uintmax_t *C){
     size_t i = start;
     size_t j = end;
-    //int pivot = arr[(start+end)/2];
-    int pivot = arr[start];
+    int pivot = arr[(start+end)/2];
+    //int pivot = arr[start];
     for (;;){
         while (arr[i]<pivot){
             i++;
@@ -312,8 +310,8 @@ static inline size_t find_pivot (int *arr, size_t start, size_t end, uintmax_t *
 static inline void qsrt (int *arr, size_t start, size_t end, uintmax_t *M, uintmax_t *C){
     if (start<end){
         size_t ipivot = find_pivot(arr, start, end, M, C);
-        qsrt(arr, start, ipivot, M, C); //–ª–µ–≤. —á–∞—Å—Ç—å  [0, indpivot]
-        qsrt(arr, ipivot+1, end, M, C); //–ø—Ä–∞–≤. —á–∞—Å—Ç—å [indpivot, length-1]
+        qsrt(arr, start, ipivot, M, C); //´•¢. Á†·‚Ï  [0, indpivot]
+        qsrt(arr, ipivot+1, end, M, C); //Ø‡†¢. Á†·‚Ï [indpivot, length-1]
     }
 }
 
@@ -325,16 +323,16 @@ void QuickSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
 int main(int argc, char *argv[])
 {
     if (argc<3){
-        printf("–£–∫–∞–∂–∏—Ç–µ –∞—Ä–≥—É–º–µ–Ω—Ç—ã: –¥–ª–∏–Ω–∞_–º–∞—Å—Å–∏–≤–∞ –ø–æ—Ä—è–¥–æ–∫_—Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∏ —Ç–∏–ø_—Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∏1 [—Ç–∏–ø_—Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∏2 ... n]\n");
-        printf("–¥–ª–∏–Ω–∞_–º–∞—Å—Å–∏–≤–∞: –º–∏–Ω–∏–º—É–º 2, –º–∞–∫—Å–∏–º—É–º\n");
-        printf("–ø–æ—Ä—è–¥–æ–∫_—Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∏: RND ASC DSC\n");
-        printf("—Ç–∏–ø—ã_—Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∏: selection bubble coctail insertion shell heap quick\n");
-        printf("–ù–∞–ø—Ä–∏–º–µ—Ä: algo.exe 100 RND coctail shell\n");
+        printf("ì™†¶®‚• †‡£„¨•≠‚Î: §´®≠†_¨†··®¢† ØÆ‡Ô§Æ™_·Æ‡‚®‡Æ¢™® ‚®Ø_·Æ‡‚®‡Æ¢™®1 [‚®Ø_·Æ‡‚®‡Æ¢™®2 ... n]\n");
+        printf("§´®≠†_¨†··®¢†: ¨®≠®¨„¨ 2, ¨†™·®¨„¨\n");
+        printf("ØÆ‡Ô§Æ™_·Æ‡‚®‡Æ¢™®: RND ASC DSC\n");
+        printf("‚®ØÎ_·Æ‡‚®‡Æ¢™®: selection bubble coctail insertion shell heap quick\n");
+        printf("ç†Ø‡®¨•‡: algo.exe 100 RND coctail shell\n");
         return -1;
     }
     size_t length;
     if ((length=atoi(argv[1]))<1){
-        printf("–ù–µ —É–∫–∞–∑–∞–Ω–∞ –¥–ª–∏–Ω–∞ –º–∞—Å—Å–∏–≤–∞!\n");
+        printf("ç• „™†ß†≠† §´®≠† ¨†··®¢†!\n");
         return -1;
     } else if (length<2){
         length = 2;
@@ -346,11 +344,11 @@ int main(int argc, char *argv[])
     uintmax_t sum, M, C;
     for (;;){
         if ((arrSrc = malloc(length*sizeof(int))) == NULL){
-            printf("–û—à–∏–±–∫–∞ –≤—ã–¥–µ–ª–µ–Ω–∏—è –ø–∞–º—è—Ç–∏!\n");
+            printf("éË®°™† ¢Î§•´•≠®Ô Ø†¨Ô‚®!\n");
             return -1;
         }
         if ((arrDst = malloc(length*sizeof(int))) == NULL){
-            printf("–û—à–∏–±–∫–∞ –≤—ã–¥–µ–ª–µ–Ω–∏—è –ø–∞–º—è—Ç–∏!\n");
+            printf("éË®°™† ¢Î§•´•≠®Ô Ø†¨Ô‚®!\n");
             return -1;
         }
         M = C = seq = sum = 0;
@@ -361,15 +359,15 @@ int main(int argc, char *argv[])
         } else if (strstr(argv[2],"DSC")){
             sum = FillArrayDscending(arrSrc,length);
         } else {
-            printf("–ù–µ –∑–∞–¥–∞–Ω –ø–æ—Ä—è–¥–æ–∫ —Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∏ –∏—Å—Ö–æ–¥–Ω–æ–≥–æ –º–∞—Å—Å–∏–≤–∞!\n");
+            printf("ç• ß†§†≠ ØÆ‡Ô§Æ™ ·Æ‡‚®‡Æ¢™® ®·ÂÆ§≠Æ£Æ ¨†··®¢†!\n");
             return -1;
         }
         if (sum>0){
             system("cls");
-            printf("–ò—Å—Ö–æ–¥–Ω—ã–π –º–∞—Å—Å–∏–≤:\n");
+            printf("à·ÂÆ§≠Î© ¨†··®¢:\n");
             PrntArray(arrSrc,length);
             seq = CalculateSequences(arrSrc,length);
-            printf("–†–∞–∑–º–µ—Ä –º–∞—Å—Å–∏–≤–∞ = %"PRIu64"; —Å—É–º–º–∞ —ç–ª–µ–º–µ–Ω—Ç–æ–≤ = %"PRIu64"; —Å–µ—Ä–∏–π = %"PRIu64"\n",length,sum,seq);
+            printf("ê†ß¨•‡ ¨†··®¢† = %"PRIu64"; ·„¨¨† Ì´•¨•≠‚Æ¢ = %"PRIu64"; ·•‡®© = %"PRIu64"\n",length,sum,seq);
         for (int i=3;i<argc;i++){
             const struct algorythm *al = algorythms;
             for (int j=0;j<alg_count;j++,al++){
@@ -377,10 +375,10 @@ int main(int argc, char *argv[])
                     printf("\n%s:\n",al->name);
                     CopyArray(arrSrc, arrDst, length);
                     al->falg(arrDst,length,&M,&C);
-                    printf("—Å—Ä–∞–≤–Ω–µ–Ω–∏–π C = %"PRIu64"; –ø–µ—Ä–µ—Å—ã–ª–æ–∫ M = %"PRIu64"\n",C,M);
+                    printf("·‡†¢≠•≠®© C = %"PRIu64"; Ø•‡•·Î´Æ™ M = %"PRIu64"\n",C,M);
                     sum = PrntArray(arrDst,length);
                     seq = CalculateSequences(arrDst,length);
-                    printf("–†–∞–∑–º–µ—Ä –º–∞—Å—Å–∏–≤–∞ = %"PRIu64"; —Å—É–º–º–∞ —ç–ª–µ–º–µ–Ω—Ç–æ–≤ = %"PRIu64"; —Å–µ—Ä–∏–π = %"PRIu64"\n",length,sum,seq);
+                    printf("ê†ß¨•‡ ¨†··®¢† = %"PRIu64"; ·„¨¨† Ì´•¨•≠‚Æ¢ = %"PRIu64"; ·•‡®© = %"PRIu64"\n",length,sum,seq);
                     break;
                 }
             }
@@ -388,7 +386,7 @@ int main(int argc, char *argv[])
         }
         free(arrSrc);
         free(arrDst);
-        printf("\n–ù–∞–∂–º–∏—Ç–µ ESC –¥–ª—è –∑–∞–≤–µ—Ä—à–µ–Ω–∏—è –∏–ª–∏ –ª—é–±—É—é –∫–ª–∞–≤–∏—à—É –¥–ª—è –ø–æ–≤—Ç–æ—Ä–∞\n");
+        printf("\nç†¶¨®‚• ESC §´Ô ß†¢•‡Ë•≠®Ô ®´® ´Ó°„Ó ™´†¢®Ë„ §´Ô ØÆ¢‚Æ‡†\n");
         char ch = getch();
         system("cls");
         switch(ch){
