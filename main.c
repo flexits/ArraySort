@@ -398,6 +398,3 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
-//https://en.wikipedia.org/wiki/Sorting_algorithm
-//https://www.programiz.com/dsa/heap-sort
-//https://neerc.ifmo.ru/wiki/index.php?title=%D0%91%D1%8B%D1%81%D1%82%D1%80%D0%B0%D1%8F_%D1%81%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0
