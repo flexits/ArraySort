@@ -12,9 +12,7 @@
  * Функции работы с массивами
  */
 uintmax_t PrntArray(int *arr, size_t length);            //выводит массив arr длины length на экран, возвращает сумму элементов
-uintmax_t FillArrayRandomizd(int *arr, size_t length);   //заполняет массив заданной длинны псевдослучайными числами, ворзвращает сумму этих чисел
-uintmax_t FillArrayAscending(int *arr, size_t length);   //то же + сортирует массив в прямом порядке
-uintmax_t FillArrayDscending(int *arr, size_t length);   //то же + сортирует массив в обратном порядке
+uintmax_t FillArray(int *arr, size_t length);            //заполняет массив заданной длинны псевдослучайными числами, ворзвращает сумму этих чисел
 size_t CalculateSequences(int *arr, size_t length);      //подсчёт числа серий в массиве
 void CopyArray(int *arrSrc, int *arrDst, size_t length); //копирует элементы массива arrSrc в arrDst
 void MirrorArray(int *arr, size_t length);               //отразить порядок следования элементов в массиве
@@ -50,9 +48,9 @@ static const struct algorythm {char id[10]; char name[40]; void (*falg)(int *arr
     };
 
 static inline int PrngRanged(int exp, int seed){
-    // число num в диапазоне upper...lower может быть сгенераировано как num = (rand() % (upper - lower + 1)) + lower
+    // число num в диапазоне upper...lower может быть сгенерировано как num = (rand() % (upper - lower + 1)) + lower
     srand(seed);
-    if (exp>8){ //avoid int overflow
+    if (exp>8){ //избегаем переполнения int
         return rand();
     } else{
         int lim_l = (int)pow(10,exp);
@@ -80,25 +78,14 @@ uintmax_t PrntArray(int *arr, size_t length){
     return sum;
 }
 
-uintmax_t FillArrayRandomizd(int *arr, size_t length){
+uintmax_t FillArray(int *arr, size_t length){
     int exp = (int)log10f(length);
+    /*struct timespec ts;
+    timespec_get(ts, time(NULL));*/
     uintmax_t sum = 0;
     for (size_t i=0;i<length;i++){
         sum += (*arr++) = PrngRanged(exp,time(NULL)*i);
     }
-    return sum;
-}
-
-uintmax_t FillArrayAscending(int *arr, size_t length){
-    uintmax_t i=0;
-    uintmax_t sum = FillArrayRandomizd(arr, length);
-    QuickSort(arr, length, &i, &i);
-    return sum;
-}
-
-uintmax_t FillArrayDscending(int *arr, size_t length){
-    uintmax_t sum = FillArrayAscending(arr, length);
-    MirrorArray(arr,length);
     return sum;
 }
 
@@ -214,7 +201,7 @@ void InsertionSort(int *arr, size_t length, uintmax_t *M, uintmax_t *C){
     for (i=1;i<length;i++){
         temp = arr[i];
         (*M)++;
-        for (j=i-1;j>=0;j--){ 
+        for (j=i-1;j>=0;j--){ //size_t j always >=0
             (*C)++;
             if (arr[j]>temp){
                 (*M)++;
@@ -306,10 +293,23 @@ static inline size_t find_pivot (int *arr, size_t start, size_t end, uintmax_t *
 }
 
 static inline void qsrt (int *arr, size_t start, size_t end, uintmax_t *M, uintmax_t *C){
+    /*
+    // рекурсивный вызов может привести к переполнению стека
     if (start<end){
         size_t ipivot = find_pivot(arr, start, end, M, C);
         qsrt(arr, start, ipivot, M, C); //лев. часть  [0, indpivot]
         qsrt(arr, ipivot+1, end, M, C); //прав. часть [indpivot, length-1]
+    }*/
+    // рекурсивно сортируем только меньшую часть
+    while (start<end){
+        size_t ipivot = find_pivot(arr, start, end, M, C);
+        if ((ipivot-start)<=(end-ipivot-1)){
+            qsrt(arr, start, ipivot, M, C);
+            start = ipivot + 1;
+        } else {
+            qsrt(arr, ipivot+1, end, M, C);
+            end = ipivot;
+        }
     }
 }
 
@@ -351,11 +351,16 @@ int main(int argc, char *argv[])
         }
         M = C = seq = sum = 0;
         if (strstr(argv[2],"RND")){
-            sum = FillArrayRandomizd(arrSrc,length);
+            sum = FillArray(arrSrc,length);
         } else if (strstr(argv[2],"ASC")){
-            sum = FillArrayAscending(arrSrc,length);
+            uintmax_t i=0;
+            sum = FillArray(arrSrc,length);
+            QuickSort(arrSrc, length, &i, &i);
         } else if (strstr(argv[2],"DSC")){
-            sum = FillArrayDscending(arrSrc,length);
+            uintmax_t i=0;
+            sum = FillArray(arrSrc,length);
+            QuickSort(arrSrc, length, &i, &i);
+            MirrorArray(arrSrc,length);
         } else {
             printf("Не задан порядок сортировки исходного массива!\n");
             return -1;
@@ -393,3 +398,6 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
+//https://en.wikipedia.org/wiki/Sorting_algorithm
+//https://www.programiz.com/dsa/heap-sort
+//https://neerc.ifmo.ru/wiki/index.php?title=%D0%91%D1%8B%D1%81%D1%82%D1%80%D0%B0%D1%8F_%D1%81%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0
